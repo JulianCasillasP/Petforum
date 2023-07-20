@@ -66,7 +66,7 @@ const commentSchema = new Schema({
 | POST   | /signup                     | const { username, email, password } = req.body      | Register the user in the database and redirect to the login page.                          
 | POST   | /login                      | const { email, password } = req.body                | Log in with a registered user and redirect to the home page.                               
 | GET    | /post                       | -                                                   | Return an array with all the registered posts.                                             
-| GET    | /posts/:postId	             | const { postId } = req.params                       | Return the information of the specified post.                                              
+| GET    | /posts/:postId	       | const { postId } = req.params                       | Return the information of the specified post.                                              
 | POST   | /posts                      | const { title, content, category } = req.body       | Create a new post in the database and redirect to the post page.                           
 | PUT    | /posts/:postId              | const { postId } = req.params                       | Edit an existing post in the database and redirect to the updated post page.               
 | DELETE | /posts/:postId              | const { postId } = req.params                       | Delete a post from the database and redirect to the home page or post list.                
