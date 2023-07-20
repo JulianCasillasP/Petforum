@@ -2,12 +2,10 @@
 Developed as the second project of my bootcamp at Ironhack Barcelona.
 
 ## About
-Welcome to our Petforum, spearheaded by Julian, in this second project. This platform is a haven for pet owners seeking to share, inquire, and connect with others who've experienced similar situations. Share and seek lost pets, discuss pet issues for advice and improvement, and explore opportunities for pet adoption.
+This platform is a haven for pet owners seeking to share, inquire, and connect with others who've experienced similar situations. Share and seek lost pets, discuss pet issues for advice and improvement, and explore opportunities for pet adoption.
 
 ## Deployment
 You can check the app fully deployed [here]
-
-## Work structure
 
 ## Installation guide
 - Fork this repo
