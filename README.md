@@ -57,8 +57,8 @@ const commentSchema = new Schema({
 ## User roles
 | Role  | Capabilities                                                                                                                                 | Property                         |
 | :---: | ---------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------|
-| User  | Can log in/log out. Can read all posts. Can create a new post.                                                                               | isAdmin: false                   |
-| Admin | Can log in/log out. Can read, edit, or delete all posts. Can create a new post. Can read all user requests and edit or delete those requests.| isAdmin: true                    |
+| User  | Can log in/log out. Can read all posts. Can create a new post. Can read all comments. Can create a new comment.                              | isAdmin: false                   |
+| Admin | Can log in/log out. Can read, edit, or delete all posts/comments. Can create a new post. Can read all user requests and edit or delete those requests.| isAdmin: true                    |
 
 ## Routes
 | Method | Endpoint                    | Require                                             | Action                                                                                     
