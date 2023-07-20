@@ -38,7 +38,7 @@ const postSchema = new Schema({
   content: { type: String, required: true },
   category: {
     type: String,
-    enum: ["Mascotas Perdidas", "Mascotas en Adopción", "Problemas con mi Mascota"],
+    enum: ["Lost Pets", "Adoption", "Issues"],
     required: true,},
   user: { type: Schema.Types.ObjectId, ref: "User", required: true },
 });
