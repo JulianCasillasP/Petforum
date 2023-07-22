@@ -1,0 +1,25 @@
+<head>
+  <title>Editar Publicación</title>
+</head>
+<body>
+  <h1>Editar Publicación</h1>
+  <form action="/posts/{{postId}}" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" value="{{post.title}}" required>
+
+    <label for="author">Autor:</label>
+    <input type="text" id="author" name="author" value="{{post.author}}" required>
+
+    <label for="category">Categoría:</label>
+    <select id="category" name="category" required>
+      <option value="adopcion" {{#ifEquals post.category "adopcion"}}selected{{/ifEquals}}>Adopción</option>
+      <option value="problemas" {{#ifEquals post.category "problemas"}}selected{{/ifEquals}}>Problemas en mascotas</option>
+      <option value="perdidas" {{#ifEquals post.category "perdidas"}}selected{{/ifEquals}}>Mascotas perdidas</option>
+    </select>
+
+    <label for="content">Contenido:</label>
+    <textarea id="content" name="content" rows="4" required>{{post.content}}</textarea>
+
+    <button type="submit">Guardar cambios</button>
+  </form>
+</body>

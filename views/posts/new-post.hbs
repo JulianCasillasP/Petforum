@@ -1,0 +1,25 @@
+<head>
+  <title>Nueva Publicación</title>
+</head>
+<body>
+  <h1>Nueva Publicación</h1>
+  <form action="/posts" method="post">
+    <label for="title">Título:</label>
+    <input type="text" id="title" name="title" required>
+
+    <label for="author">Autor:</label>
+    <input type="text" id="author" name="author" required>
+
+    <label for="category">Categoría:</label>
+    <select id="category" name="category" required>
+      <option value="adopcion">Adopción</option>
+      <option value="problemas">Problemas en mascotas</option>
+      <option value="perdidas">Mascotas perdidas</option>
+    </select>
+
+    <label for="content">Contenido:</label>
+    <textarea id="content" name="content" rows="4" required></textarea>
+
+    <button type="submit">Publicar</button>
+  </form>
+</body>
