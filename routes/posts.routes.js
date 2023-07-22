@@ -15,10 +15,8 @@ router.post('/create', (req, res) => {
     if (!title || !content || !category) {
       return res.render('error', { error: 'Por favor, completa todos los campos.' });
     }
-  
-    const newPost = new Post({ title, content, category });
-  
-    newPost.save()
+    
+    Post.create({ title, content, category })
       .then(() => {
         res.redirect('posts/posts');
       })
@@ -26,7 +24,7 @@ router.post('/create', (req, res) => {
         res.render('error', { error: 'Hubo un error al guardar el post.' });
       });
   });
-// Ruta GET para mostrar todas los posts
+// Ruta GET para mostrar todos los posts
 router.get('/', (req, res) => {
   post.find()
     .then((post) => {
