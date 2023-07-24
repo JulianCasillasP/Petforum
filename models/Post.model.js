@@ -5,10 +5,10 @@ const postSchema = new mongoose.Schema({
   content: { type: String, required: true },
   category: {
     type: String,
-    enum: ["lost-pets", "adoptions", "issues"],
+    enum: ["perdidas", "adopcion", "problemas"],
     required: true,
   },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", require: true },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 

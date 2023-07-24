@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const post = require('../models/Post.model');
+const user = require('../models/User.model');
+
 
 
 // Ruta GET para mostrar el formulario de creación de posts
@@ -10,28 +12,39 @@ router.get('/new-post', (req, res) => {
 
 // Ruta POST para recibir los datos del formulario y crear un nuevo post
 router.post('/create', (req, res) => {
-    const { title, content, category } = req.body;
-    
-    if (!title || !content || !category) {
-      return res.render('error', { error: 'Por favor, completa todos los campos.' });
-    }
-    
-    Post.create({ title, content, category })
-      .then(() => {
-        res.redirect('posts/posts');
-      })
-      .catch((error) => {
-        res.render('error', { error: 'Hubo un error al guardar el post.' });
-      });
-  });
+  const { title, content, category } = req.body;
+
+  if (!title || !content || !category) {
+    return res.render('error', { error: 'Por favor, completa todos los campos.' });
+  }
+  
+  const userId = req.session.currentUser._id;
+
+  post.create({ title, content, category, user: userId })
+    .then(() => {
+      // After creating the post, use .populate() to get the user's information
+      post.find({ user: userId })
+        .populate('user', 'username') // Populate the 'user' field with 'username' only
+        .then((posts) => {
+          res.redirect('/posts'); // Redirect to the /posts route
+        })
+        .catch((error) => {
+          res.render('error', { error: 'Hubo un error al mostrar los posts.' });
+        });
+    })
+    .catch((error) => {
+      res.render('error', { error: 'Hubo un error al guardar el post.' });
+    });
+});
 // Ruta GET para mostrar todos los posts
 router.get('/', (req, res) => {
   post.find()
-    .then((post) => {
-      res.render('posts/posts', { post });
+    .populate('user', 'username') // Populate the 'user' field with 'username' property
+    .then((posts) => {
+      res.render('posts/posts', { posts });
     })
     .catch((error) => {
-      res.render('posts/posts', { error });
+      res.render('error', { error });
     });
 });
 
@@ -39,7 +52,7 @@ router.get('/', (req, res) => {
 router.post('/:id/delete', (req, res) => {
     const postId = req.params.id;
   
-    Post.findByIdAndRemove(postId)
+    post.findByIdAndRemove(postId)
       .then(() => {
         res.redirect('/posts');
       })
@@ -52,7 +65,7 @@ router.post('/:id/delete', (req, res) => {
 router.get('/:id/edit', (req, res) => {
     const postId = req.params.id;
   
-    Post.findById(postId)
+    this.purgeost.findById(postId)
       .then((post) => {
         post.find()
           .then((post) => {
@@ -72,7 +85,7 @@ router.get('/:id/edit', (req, res) => {
     const postId = req.params.id;
     const { title, content, category } = req.body;
   
-    Post.findByIdAndUpdate(postId, { title, content, category })
+    post.findByIdAndUpdate(postId, { title, content, category })
       .then(() => {
         res.redirect(`/${postId}`);
       })
