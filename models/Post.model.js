@@ -8,7 +8,7 @@ const postSchema = new mongoose.Schema({
     enum: ["perdidas", "adopcion", "problemas"],
     required: true,
   },
-  user: { type: mongoose.Schema.Types.ObjectId, ref: "User", require: true },
+  user: { type: mongoose.Schema.Types.ObjectId, ref: "user", require: true },
   comments: [{ type: mongoose.Schema.Types.ObjectId, ref: "Comment" }],
 });
 
