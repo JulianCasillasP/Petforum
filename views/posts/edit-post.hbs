@@ -2,24 +2,29 @@
   <title>Editar Publicación</title>
 </head>
 <body>
-  <h1>Editar Publicación</h1>
-  <form action="/posts/{{postId}}" method="POST">
-    <label for="title">Título:</label>
-    <input type="text" id="title" name="title" value="{{post.title}}" required>
+  <div class="container mt-5">
+    <h1 class="mb-4">Editar Publicación</h1>
+    <form action="/posts/{{post._id}}/edit" method="POST">
+      <div class="form-group">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" class="form-control" value="{{post.title}}" required>
+      </div>
 
-    <label for="author">Autor:</label>
-    <input type="text" id="author" name="author" value="{{post.author}}" required>
+      <div class="form-group">
+        <label for="category">Categoría:</label>
+        <select id="category" name="category" class="form-control" required>
+          <option value="Adopción" {{#if (eq post.category "Adopción")}}selected{{/if}}>Adopción</option>
+          <option value="Problemas en mascotas" {{#if (eq post.category "Problemas en mascotas")}}selected{{/if}}>Problemas en mascotas</option>
+          <option value="Mascotas perdidas" {{#if (eq post.category "Mascotas perdidas")}}selected{{/if}}>Mascotas perdidas</option>
+        </select>
+      </div>
 
-    <label for="category">Categoría:</label>
-    <select id="category" name="category" required>
-      <option value="adopcion" {{#ifEquals post.category "adopcion"}}selected{{/ifEquals}}>Adopción</option>
-      <option value="problemas" {{#ifEquals post.category "problemas"}}selected{{/ifEquals}}>Problemas en mascotas</option>
-      <option value="perdidas" {{#ifEquals post.category "perdidas"}}selected{{/ifEquals}}>Mascotas perdidas</option>
-    </select>
+      <div class="form-group">
+        <label for="content">Contenido:</label>
+        <textarea id="content" name="content" rows="4" class="form-control" required>{{post.content}}</textarea>
+      </div>
 
-    <label for="content">Contenido:</label>
-    <textarea id="content" name="content" rows="4" required>{{post.content}}</textarea>
-
-    <button type="submit">Guardar cambios</button>
-  </form>
+      <button type="submit" class="btn btn-primary btn-block mt-4">Actualizar</button>
+    </form>
+  </div>
 </body>

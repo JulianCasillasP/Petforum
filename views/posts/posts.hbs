@@ -1,36 +1,96 @@
+{{!-- <head>
+  <title>Posts</title>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1 class="mb-4">Posts</h1>
+    <a href="/posts/category/adopcion" class="btn btn-primary">Filtrar por
+      Adopción</a>
+    <a href="/posts/category/problemas" class="btn btn-primary">Filtrar por
+      Problemas en mascotas</a>
+    <a href="/posts/category/perdidas" class="btn btn-primary">Filtrar por
+      Mascotas perdidas</a>
+    {{#each posts}}
+      <div class="card mb-4 border-primary shadow">
+        <div class="card-body">
+          <h2 class="card-title">{{title}}</h2>
+          <p class="card-text">{{content}}</p>
+          <p class="card-text">Category: {{category}}</p>
+          <p class="card-text">Posted by: {{user.username}}</p>
+          <div class="button-container">
+            <a href="/posts/{{_id}}/edit-post" class="btn btn-primary mr-2">Editar</a>
+            <form action="posts/{{_id}}/delete" method="POST">
+    <button type="submit" class="btn btn-danger">Borrar</button>
+  </form>
+</div>
+          <h3 class="card-title">Comments</h3>
+          {{#if comments.length}}
+            <div class="card">
+              <div class="card-body">
+                {{#each comments}}
+                  <p class="card-text">{{content}}</p>
+                  <p class="card-text">Commented by: {{user.username}}</p>
+                {{/each}}
+              </div>
+            </div>
+          {{else}}
+            <p class="card-text">No comments yet.</p>
+          {{/if}}
+        </div>
+      </div>
+    {{/each}}
+  </div>
+</body> --}}
+
 <head>
   <title>Posts</title>
 </head>
 <body>
-
-    
   <div class="container mt-5">
     <h1 class="mb-4">Posts</h1>
-<a href="/posts/category/adopcion" class="btn btn-primary">Filtrar por Adopción</a>
-<a href="/posts/category/problemas" class="btn btn-primary">Filtrar por Problemas en mascotas</a>
-<a href="/posts/category/perdidas" class="btn btn-primary">Filtrar por Mascotas perdidas</a>
+    <a href="/posts/category/adopcion" class="btn btn-primary">Filtrar por
+      Adopción</a>
+    <a href="/posts/category/problemas" class="btn btn-primary">Filtrar por
+      Problemas en mascotas</a>
+    <a href="/posts/category/perdidas" class="btn btn-primary">Filtrar por
+      Mascotas perdidas</a>
+
     {{#each posts}}
-    <div class="card mb-4 border-primary shadow">
-      <div class="card-body">
-        <h2 class="card-title">{{title}}</h2>
-        <p class="card-text">{{content}}</p>
-        <p class="card-text">Category: {{category}}</p>
-        <p class="card-text">Posted by: {{user.name}}</p>
-        <h3 class="card-title">Comments</h3>
-        {{#if comments.length}}
-        <div class="card">
-          <div class="card-body">
-            {{#each comments}}
-            <p class="card-text">{{content}}</p>
-            <p class="card-text">Commented by: {{username}}</p>
-            {{/each}}
+      <div class="card mb-4 border-primary shadow">
+        <div class="card-body">
+          <h2 class="card-title">{{title}}</h2>
+          <p class="card-text">{{content}}</p>
+          <p class="card-text">Category: {{category}}</p>
+          <p class="card-text">Posted by: {{user.username}}</p>
+          <div class="btn-group" role="group" aria-label="Editar y Borrar">
+            <form action="/posts/{{_id}}/edit-post" method="GET">
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm btn-blue"
+              >Editar</button>
+            </form>
+            <form action="posts/{{_id}}/delete" method="POST">
+              <button
+                type="submit"
+                class="btn btn-danger btn-sm btn-red"
+              >Borrar</button>
+            </form>
           </div>
+          <h3 class="card-title">Comments</h3>
+          {{#if comments.length}}
+            <div class="card">
+              <div class="card-body">
+                {{#each comments}}
+                  <p class="card-text">{{content}}</p>
+                  <p class="card-text">Commented by: {{user.username}}</p>
+                {{/each}}
+              </div>
+            </div>
+          {{else}}
+            <p class="card-text">No comments yet.</p>
+          {{/if}}
         </div>
-        {{else}}
-        <p class="card-text">No comments yet.</p>
-        {{/if}}
       </div>
-    </div>
     {{/each}}
   </div>
 </body>

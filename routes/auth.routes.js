@@ -34,9 +34,9 @@ router.post("/signup", isLoggedOut, (req, res) => {
     return;
   }
 
-  if (password.length < 6) {
+  if (password.length < 4) {
     res.status(400).render("auth/signup", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
+      errorMessage: "Your password needs to be at least 4 characters long.",
     });
 
     return;
@@ -81,7 +81,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
 });
 
 // GET /auth/login
-router.get("/login", isLoggedOut, (req, res) => {
+router.get("/login", isLoggedOut, (req, res, next) => {
   res.render("auth/login");
 });
 
@@ -107,7 +107,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   // - either length based parameters or we check the strength of a password
   if (password.length < 4) {
     return res.status(400).render("auth/login", {
-      errorMessage: "Your password needs to be at least 6 characters long.",
+      errorMessage: "Your password needs to be at least 4 characters long.",
     });
   }
 

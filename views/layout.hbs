@@ -27,10 +27,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/posts/new-post">Crea un post.</a>
         </li>
+        {{#if currentUser}}{{else}}
         <li class="nav-item">
           <a class="nav-link" href="/auth/signup">Regístrate.</a>
         </li>
-        {{#if currentUser}}{{else}}
+        
           <li class="nav-item">
             <a class="nav-link" href="/auth/login">Inicia sesion.</a>
           </li>
@@ -38,13 +39,14 @@
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout">Cerrar sesion.</a>
         </li>
-
-        {{#if currentUser}}
-          <p>Welcome, {{currentUser.username}}!</p>
-        {{else}}
-          <p>Welcome, guest!</p>
-        {{/if}}
       </ul>
+      <div class="welcome-message">
+        {{#if currentUser}}
+          <p class="text-right">Bienvenido, {{currentUser.username}}!</p>
+        {{else}}
+          <p class="text-right">Bienvenido, invitado!</p>
+        {{/if}}
+      </div>
 
     </header>
     {{{body}}}
