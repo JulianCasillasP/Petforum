@@ -36,9 +36,11 @@
             <a class="nav-link" href="/auth/login">Inicia sesion.</a>
           </li>
         {{/if}}
+        {{#if currentUser}}
         <li class="nav-item">
           <a class="nav-link" href="/auth/logout">Cerrar sesion.</a>
         </li>
+        {{/if}}
       </ul>
       <div class="welcome-message">
         {{#if currentUser}}
