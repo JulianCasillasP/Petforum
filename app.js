@@ -23,6 +23,12 @@ const projectName = "Petforum";
 
 app.locals.appTitle = `${capitalize(projectName)} created with IronLauncher`;
 
+// Create a middleware to pass user information to all views
+app.use((req, res, next) => {
+    res.locals.currentUser = req.session.currentUser || null;
+    next();
+  });
+  
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");
 app.use("/", indexRoutes);
@@ -33,8 +39,6 @@ app.use("/auth", authRoutes);
 const postsRoutes = require("./routes/posts.routes");
 app.use("/posts", postsRoutes);
 
-const categoryRoutes = require("./routes/posts.routes");
-app.use("/category", categoryRoutes);
 
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes

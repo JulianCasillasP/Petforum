@@ -95,13 +95,17 @@ router.post("/login", isLoggedOut, (req, res, next) => {
       errorMessage:
         "All fields are mandatory. Please provide username, email and password.",
     });
-
-    return;
+    req.session.currentUser = user.toObject();
+    // Remove the sensitive password field from the session
+    delete req.session.currentUser.password;
+  
+    res.redirect("/");
+    
   }
 
   // Here we use the same logic as above
   // - either length based parameters or we check the strength of a password
-  if (password.length < 6) {
+  if (password.length < 4) {
     return res.status(400).render("auth/login", {
       errorMessage: "Your password needs to be at least 6 characters long.",
     });
