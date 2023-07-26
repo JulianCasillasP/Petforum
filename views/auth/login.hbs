@@ -1,24 +1,36 @@
-<div id="login-form">
-  <h2>Log In</h2>
-  <form action="/auth/login" method="POST">
+<div id="login-form" class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card shadow-lg">
+        <div class="card-body">
+          <h2 class="card-title text-center mb-4">Log In</h2>
+          <form action="/auth/login" method="POST">
 
-    <label> Username
-      <input type="text" name="username" placeholder="Your username" />
-    </label>
+            <div class="form-group">
+              <label for="username">Username</label>
+              <input type="text" name="username" id="username" class="form-control" placeholder="Your username" />
+            </div>
 
-    <label> Email
-      <input type="email" name="email" placeholder="Your email" />
-    </label>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" id="email" class="form-control" placeholder="Your email" />
+            </div>
 
-    <label> Password
-      <input type="password" name="password" placeholder="Your password" />
-    </label>
+            <div class="form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" id="password" class="form-control" placeholder="Your password" />
+            </div>
 
-    <button type="submit">Log In</button>
+            <div class="form-group text-center">
+              <button type="submit" class="btn btn-primary btn-lg btn-block mt-4">Log In</button>
+            </div>
 
-
-    {{#if errorMessage}}
-      <p class="error">{{errorMessage}}</p>
-    {{/if}}
-  </form>
+            {{#if errorMessage}}
+              <p class="text-center text-danger mt-3">{{errorMessage}}</p>
+            {{/if}}
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

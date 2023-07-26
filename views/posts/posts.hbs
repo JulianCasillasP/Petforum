@@ -1,24 +1,36 @@
 <head>
-    <title>Posts</title>
+  <title>Posts</title>
 </head>
 <body>
-    <h1>Posts</h1>
 
+    
+  <div class="container mt-5">
+    <h1 class="mb-4">Posts</h1>
+<a href="/category/adopcion" class="btn btn-primary">Filtrar por Adopción</a>
+<a href="/category/problemas" class="btn btn-primary">Filtrar por Problemas en mascotas</a>
+<a href="/category/perdidas" class="btn btn-primary">Filtrar por Mascotas perdidas</a>
     {{#each posts}}
-    <div>
-        <h2>{{title}}</h2>
-        <p>{{content}}</p>
-        <p>Category: {{category}}</p>
-        <p>Posted by: {{user.name}}</p>
-        <h3>Comments</h3>
+    <div class="card mb-4 border-primary shadow">
+      <div class="card-body">
+        <h2 class="card-title">{{title}}</h2>
+        <p class="card-text">{{content}}</p>
+        <p class="card-text">Category: {{category}}</p>
+        <p class="card-text">Posted by: {{user.name}}</p>
+        <h3 class="card-title">Comments</h3>
         {{#if comments.length}}
+        <div class="card">
+          <div class="card-body">
             {{#each comments}}
-                <p>{{content}}</p>
-                <p>Commented by: {{username}}</p>
+            <p class="card-text">{{content}}</p>
+            <p class="card-text">Commented by: {{username}}</p>
             {{/each}}
+          </div>
+        </div>
         {{else}}
-            <p>No comments yet.</p>
+        <p class="card-text">No comments yet.</p>
         {{/if}}
+      </div>
     </div>
     {{/each}}
+  </div>
 </body>

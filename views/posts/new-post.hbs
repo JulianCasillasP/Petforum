@@ -2,21 +2,29 @@
   <title>Nueva Publicación</title>
 </head>
 <body>
-  <h1>Nueva Publicación</h1>
-  <form action="/posts/create" method="POST">
-    <label for="title">Título:</label>
-    <input type="text" id="title" name="title" required>
+  <div class="container mt-5">
+    <h1 class="mb-4">Nueva Publicación</h1>
+    <form action="/posts/create" method="POST">
+      <div class="form-group">
+        <label for="title">Título:</label>
+        <input type="text" id="title" name="title" class="form-control" required>
+      </div>
 
-    <label for="category">Categoría:</label>
-    <select id="category" name="category" required>
-      <option value="adopcion">Adopción</option>
-      <option value="problemas">Problemas en mascotas</option>
-      <option value="perdidas">Mascotas perdidas</option>
-    </select>
+      <div class="form-group">
+        <label for="category">Categoría:</label>
+        <select id="category" name="category" class="form-control" required>
+          <option value="adopcion">Adopción</option>
+          <option value="problemas">Problemas en mascotas</option>
+          <option value="perdidas">Mascotas perdidas</option>
+        </select>
+      </div>
 
-    <label for="content">Contenido:</label>
-    <textarea id="content" name="content" rows="4" required></textarea>
+      <div class="form-group">
+        <label for="content">Contenido:</label>
+        <textarea id="content" name="content" rows="4" class="form-control" required></textarea>
+      </div>
 
-    <button type="submit">Publicar</button>
-  </form>
+      <button type="submit" class="btn btn-primary btn-block mt-4">Publicar</button>
+    </form>
+  </div>
 </body>

@@ -20,26 +20,18 @@ router.post('/create', (req, res) => {
   
   const userId = req.session.currentUser._id;
 
-  post.create({ title, content, category, user: userId })
+  post.create({ title, content, category})
     .then(() => {
-      // After creating the post, use .populate() to get the user's information
-      post.find({ user: userId })
-        .populate('user', 'username') // Populate the 'user' field with 'username' only
-        .then((posts) => {
           res.redirect('/posts'); // Redirect to the /posts route
         })
         .catch((error) => {
           res.render('error', { error: 'Hubo un error al mostrar los posts.' });
         });
     })
-    .catch((error) => {
-      res.render('error', { error: 'Hubo un error al guardar el post.' });
-    });
-});
+
 // Ruta GET para mostrar todos los posts
 router.get('/', (req, res) => {
   post.find()
-    .populate('user', 'username') // Populate the 'user' field with 'username' property
     .then((posts) => {
       res.render('posts/posts', { posts });
     })
@@ -91,6 +83,20 @@ router.get('/:id/edit', (req, res) => {
       })
       .catch(() => {
         res.redirect('/posts');
+      });
+  });
+
+  // Ruta GET para mostrar los posts filtrados por categoría
+  router.get('/category/:category', (req, res) => {
+    const category = req.params.category;
+    console.log("Category Filter:", category);
+  
+    post.find({ category })
+      .then((posts) => {
+        res.render('posts/posts', { posts });
+      })
+      .catch((error) => {
+        res.render('error', { error });
       });
   });
 
