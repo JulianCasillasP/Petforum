@@ -42,7 +42,7 @@ router.get('/', (req, res, next) => {
     });
 });
 
-  // Ruta POST para eliminar un post específico
+//   // Ruta POST para eliminar un post específico
   router.post('/:id/delete', (req, res, next) => {
   
     post.findByIdAndRemove(req.params.id)
@@ -53,6 +53,8 @@ router.get('/', (req, res, next) => {
         res.status(500).send('Ocurrió un error');
       });
 });
+
+
 
 // Ruta GET para mostrar el formulario de edición de un post
 router.get('/:id/edit', (req, res, next) => {
@@ -95,19 +97,19 @@ router.post('/:id/edit', (req, res, next) => {
 });
 
 
-  // Ruta GET para mostrar los posts filtrados por categoría
-  router.get('/category/:category', (req, res, next) => {
-    const category = req.params.category;
-    console.log("Category Filter:", category);
-  
-    post.find({ category })
-    .populate("user")
-      .then((posts) => {
-        res.render('posts/posts', { posts });
-      })
-      .catch((error) => {
-        res.render('error', { error });
-      });
-  });
+// Ruta GET para mostrar los posts filtrados por categoría
+router.get('/category/:category', (req, res, next) => {
+  const category = req.params.category;
+  console.log("Category Filter:", category);
+
+  post.find({ category })
+  .populate("user")
+    .then((posts) => {
+      res.render('posts/posts', { posts });
+    })
+    .catch((error) => {
+      res.render('error', { error });
+    });
+});
 
 module.exports = router;
