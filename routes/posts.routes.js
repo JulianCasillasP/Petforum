@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const post = require('../models/Post.model');
+const Comment = require('../models/Comment.model');
 
 
 // Ruta GET para mostrar el formulario de creación de posts
@@ -66,7 +67,7 @@ router.get('/:id', (req, res, next) => {
   let owner = false;
 
   post.findById(postId)
-    .populate("user")
+    .populate("user" )
     .then((post) => {
 
       if (!post) {
@@ -123,7 +124,8 @@ router.post('/:id/edit', (req, res, next) => {
     });
 });
 
-//   // Ruta POST para eliminar un post específico
+
+// Ruta POST para eliminar un post específico
   router.post('/:id/delete', (req, res, next) => {
   
     post.findByIdAndRemove(req.params.id)
@@ -133,6 +135,30 @@ router.post('/:id/edit', (req, res, next) => {
       .catch(() => {
         res.status(500).send('Ocurrió un error');
       });
+});
+
+// Ruta POST para agregar un comentario a un post específico
+router.post('/:id/comments', (req, res, next) => {
+  const postId = req.params.id;
+  const { content } = req.body;
+  const owner = req.session.currentUser._id;
+
+  if (!content) {
+    return res.render('error', { error: 'Por favor, completa el contenido del comentario.' });
+  }
+
+  Comment.create({ content, user: owner, post: postId })
+    .then((comment) => {
+      // Agrega el ID del nuevo comentario al array de comentarios del post
+      return Post.findByIdAndUpdate(postId, { $push: { comments: comment._id } }, { new: true });
+    })
+    .then(() => {
+      res.redirect(`/posts/${postId}`);
+    })
+    .catch((error) => {
+      console.error(error);
+      res.render('error', { error: 'Hubo un error al agregar el comentario.' });
+    });
 });
 
 
