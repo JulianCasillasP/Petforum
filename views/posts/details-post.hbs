@@ -1,0 +1,23 @@
+<html>
+<head>
+    <title>Detalles del Post</title>
+</head>
+<body>
+    <div class="container mt-5">
+        <h1>{{ post.title }}</h1>
+        <p>{{ post.content }}</p>
+        <p>Categoría: {{ post.category }}</p>
+        <p>Escrito por: {{post.user.username}}</p> 
+         <form action="/posts/{{post._id}}/edit" method="GET">
+              <button
+                type="submit"
+                class="btn btn-primary btn-sm btn-blue"
+              >Editar</button>
+            </form>
+        <form action="/posts/{{ post._id }}/delete" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+        </form>
+        <a href="/posts" class="btn btn-secondary mt-2">Volver a la lista de posts</a>
+    </div>
+</body>
+</html>

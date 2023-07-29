@@ -11,15 +11,6 @@
       </div>
 
       <div class="form-group">
-        <label for="category">Categoría:</label>
-        <select id="category" name="category" class="form-control" required>
-          <option value="Adopción" {{#if (eq post.category "Adopción")}}selected{{/if}}>Adopción</option>
-          <option value="Problemas en mascotas" {{#if (eq post.category "Problemas en mascotas")}}selected{{/if}}>Problemas en mascotas</option>
-          <option value="Mascotas perdidas" {{#if (eq post.category "Mascotas perdidas")}}selected{{/if}}>Mascotas perdidas</option>
-        </select>
-      </div>
-
-      <div class="form-group">
         <label for="content">Contenido:</label>
         <textarea id="content" name="content" rows="4" class="form-control" required>{{post.content}}</textarea>
       </div>
