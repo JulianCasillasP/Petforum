@@ -23,6 +23,7 @@ router.get('/', (req, res, next) => {
 });
 
 
+
 // Ruta GET para mostrar los posts filtrados por categoría
 router.get('/category/:category', (req, res, next) => {
   const category = req.params.category;
@@ -62,15 +63,21 @@ router.post('/create', (req, res, next) => {
 // Ruta GET para mostrar un post específico por su ID
 router.get('/:id', (req, res, next) => {
   const postId = req.params.id;
+  let owner = false;
 
   post.findById(postId)
     .populate("user")
     .then((post) => {
+
       if (!post) {
         return res.status(404).render('error', { error: 'El post no existe.' });
       }
 
-      res.render('posts/details-post', { post });
+      if(post.user._id == req.session.currentUser._id){
+        owner = true;
+      }
+
+      res.render('posts/details-post', { post, owner });
     })
     .catch((error) => {
       console.error(error); 
