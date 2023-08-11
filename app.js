@@ -13,6 +13,8 @@ const express = require("express");
 // https://www.npmjs.com/package/hbs
 const hbs = require("hbs");
 
+const cloudinary = require('cloudinary').v2;
+
 const app = express();
 app.use(express.urlencoded({ extended: true }));
 // ℹ️ This function is getting exported from the config folder. It runs most pieces of middleware
@@ -39,7 +41,12 @@ app.use("/auth", authRoutes);
 const postsRoutes = require("./routes/posts.routes");
 app.use("/posts", postsRoutes);
 
-
+// Configurar Cloudinary con las credenciales de .env
+cloudinary.config({
+  cloud_name: process.env.cloud_name,
+  api_key: process.env.api_key,
+  api_secret: process.env.api_secret
+});
 
 // ❗ To handle errors. Routes that don't exist or errors that you handle in specific routes
 require("./error-handling")(app);

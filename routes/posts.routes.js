@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
+const cloudinary = require('cloudinary').v2;
 
 
 // Ruta GET para mostrar el formulario de creación de posts
@@ -40,7 +41,6 @@ router.get('/category/:category', (req, res, next) => {
     });
 });
 
-
 // Ruta POST para recibir los datos del formulario y crear un nuevo post
 router.post('/create', (req, res, next) => {
   const { title, content, category } = req.body;
@@ -59,6 +59,37 @@ router.post('/create', (req, res, next) => {
           res.render('error', { error: 'Hubo un error al mostrar los posts.' });
         });
     })
+
+// router.post('/create', async (req, res, next) => {
+//   const { title, content, category } = req.body;
+//   const image = req.file; // This will be the uploaded image file
+  
+//   // Extract the user ID from the session
+//   const userId = req.session.currentUser._id;
+
+//   // Validation
+//   if (!title || !content || !category) {
+//     return res.render('error', { error: 'Por favor, completa todos los campos.' });
+//   }
+// console.log(image)
+//   try {
+//     const result = await cloudinary.uploader.upload(image.path); // Upload the image to Cloudinary
+// console.log(result)
+//     // Create the post with the image URL
+//     await post.create({
+//       title,
+//       content,
+//       category,
+//       user: userId,
+//       imageUrl: result.secure_url
+//     });
+
+//     res.redirect('/posts');
+//   } catch (error) {
+//     console.error(error);
+//     res.render('error', { error: 'Hubo un error al mostrar los posts.' });
+//   }
+// });
 
 
 // Ruta GET para mostrar un post específico por su ID
