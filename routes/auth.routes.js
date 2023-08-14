@@ -22,10 +22,16 @@ router.get("/signup", isLoggedOut, (req, res) => {
 
 // POST /auth/signup
 router.post("/signup", isLoggedOut, (req, res) => {
-  const { username, email, password } = req.body;
-
+  const { username, email, password, confirmPassword, adminPassword } =
+    req.body;
+  let isAdmin = false;
   // Check that username, email, and password are provided
-  if (username === "" || email === "" || password === "") {
+  if (
+    username === "" ||
+    email === "" ||
+    password === "" ||
+    confirmPassword === ""
+  ) {
     res.status(400).render("auth/signup", {
       errorMessage:
         "All fields are mandatory. Please provide your username, email and password.",
@@ -33,7 +39,17 @@ router.post("/signup", isLoggedOut, (req, res) => {
 
     return;
   }
+  if (adminPassword === "666666") {
+    isAdmin = true;
+  }
 
+  if (password !== confirmPassword) {
+    res.status(400).render("auth/signup", {
+      errorMessage:
+        "Passwords do not match. Please make sure both passwords are the same.",
+    });
+    return;
+  }
   if (password.length < 4) {
     res.status(400).render("auth/signup", {
       errorMessage: "Your password needs to be at least 4 characters long.",
@@ -43,7 +59,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   }
 
   //   ! This regular expression checks password for special characters and minimum length
- 
+
   // const regex = /(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,}/;
   // if (!regex.test(password)) {
   //   res
@@ -54,14 +70,18 @@ router.post("/signup", isLoggedOut, (req, res) => {
   //   return;
   // }
 
-
   // Create a new user - start by hashing the password
   bcrypt
     .genSalt(saltRounds)
     .then((salt) => bcrypt.hash(password, salt))
     .then((hashedPassword) => {
       // Create a user and save it in the database
-      return User.create({ username, email, password: hashedPassword });
+      return User.create({
+        username,
+        email,
+        password: hashedPassword,
+        isAdmin,
+      });
     })
     .then((user) => {
       res.redirect("/auth/login");
@@ -98,7 +118,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     req.session.currentUser = user.toObject();
     // Remove the sensitive password field from the session
     delete req.session.currentUser.password;
-  
+
     res.redirect("/");
     return;
   }
@@ -112,7 +132,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
   }
 
   // Search the database for a user with the email submitted in the form
-  User.findOne({ username})
+  User.findOne({ username })
     .then((user) => {
       // If the user isn't found, send an error message that user provided wrong credentials
       if (!user) {

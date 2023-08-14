@@ -8,8 +8,15 @@
         <p>{{ post.content }}</p>
         <p>Categoría: {{ post.category }}</p>
         <p>Escrito por: {{post.user.username}}</p> 
-        {{#if owner}}
-          <form action="/posts/{{post._id}}/edit" method="GET">
+        {{#if currentUser.isAdmin}}
+          <form action="/posts/{{ post._id }}/edit" method="GET">
+            <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+          </form>
+          <form action="/posts/{{ post._id }}/delete" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        {{else if owner}}
+          <form action="/posts/{{ post._id }}/edit" method="GET">
             <button type="submit" class="btn btn-primary btn-sm">Editar</button>
           </form>
           <form action="/posts/{{ post._id }}/delete" method="post">
