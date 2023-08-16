@@ -5,9 +5,12 @@
   <div class="container mt-5">
     <h1 class="mb-4">Petforum Posts:</h1>
     <div class="category-buttons">
-      <a href="/posts/category/adopcion" class="btn btn-primary">Filtrar por Adopción</a>
-      <a href="/posts/category/problemas" class="btn btn-primary">Filtrar por Problemas en mascotas</a>
-      <a href="/posts/category/perdidas" class="btn btn-primary">Filtrar por Mascotas perdidas</a>
+      <a href="/posts/category/adopcion" class="btn btn-primary">Filtrar por
+        Adopción</a>
+      <a href="/posts/category/problemas" class="btn btn-primary">Filtrar por
+        Problemas en mascotas</a>
+      <a href="/posts/category/perdidas" class="btn btn-primary">Filtrar por
+        Mascotas perdidas</a>
     </div>
 
     {{#each posts}}
@@ -20,11 +23,16 @@
           <p class="card-text">Category: {{category}}</p>
           <p class="card-text">Posted by: {{user.username}}</p>
 
-          {{#if imageUrl}}
-            <img src="{{imageUrl}}" alt="{{title}}" class="img-fluid">
+          {{#if post.image}}
+            <img
+              src="/public/uploads/{{post.image}}"
+              alt="{{post.title}}"
+              class="img-fluid"
+            />
           {{/if}}
 
-          <a href="/posts/{{_id}}" class="btn btn-primary btn-sm btn-blue">Ver Detalles</a>
+          <a href="/posts/{{_id}}" class="btn btn-primary btn-sm btn-blue">Ver
+            Detalles</a>
           <h3 class="card-title">Comments</h3>
           {{#if comments.length}}
             <div class="card">

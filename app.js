@@ -30,6 +30,8 @@ app.use((req, res, next) => {
     res.locals.currentUser = req.session.currentUser || null;
     next();
   });
+
+  app.use(express.static('public'));
   
 // 👇 Start handling routes here
 const indexRoutes = require("./routes/index.routes");

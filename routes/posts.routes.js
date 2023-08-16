@@ -2,7 +2,19 @@ const express = require('express');
 const router = express.Router();
 const post = require('../models/Post.model');
 const Comment = require('../models/Comment.model');
-const cloudinary = require('cloudinary').v2;
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'public/uploads'); // Donde se guardarán las imágenes
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, uniqueSuffix + '-' + file.originalname);
+  }
+});
+
+const upload = multer({ storage: storage });
 
 
 // Ruta GET para mostrar el formulario de creación de posts
@@ -25,7 +37,6 @@ router.get('/', (req, res, next) => {
 });
 
 
-
 // Ruta GET para mostrar los posts filtrados por categoría
 router.get('/category/:category', (req, res, next) => {
   const category = req.params.category;
@@ -41,55 +52,48 @@ router.get('/category/:category', (req, res, next) => {
     });
 });
 
+
+// // Ruta POST para recibir los datos del formulario y crear un nuevo post
+// router.post('/create', (req, res, next) => {
+//   const { title, content, category } = req.body;
+
+//   if (!title || !content || !category) {
+//     return res.render('error', { error: 'Por favor, completa todos los campos.' });
+//   }
+  
+//   const userId = req.session.currentUser._id;
+
+//   post.create({ title, content, category, user: userId})
+//     .then(() => {
+//           res.redirect('/posts');
+//         })
+//         .catch((error) => {
+//           res.render('error', { error: 'Hubo un error al mostrar los posts.' });
+//         });
+//     });
+
+
 // Ruta POST para recibir los datos del formulario y crear un nuevo post
-router.post('/create', (req, res, next) => {
+router.post('/create', upload.single('image'), (req, res, next) => {
   const { title, content, category } = req.body;
 
   if (!title || !content || !category) {
     return res.render('error', { error: 'Por favor, completa todos los campos.' });
   }
-  
+
   const userId = req.session.currentUser._id;
 
-  post.create({ title, content, category, user: userId})
+  // Aquí puedes obtener el nombre del archivo de imagen
+  const imageName = req.file.filename;
+
+  post.create({ title, content, category, user: userId, image: imageName })
     .then(() => {
-          res.redirect('/posts');
-        })
-        .catch((error) => {
-          res.render('error', { error: 'Hubo un error al mostrar los posts.' });
-        });
+      res.redirect('/posts');
     })
-
-// router.post('/create', async (req, res, next) => {
-//   const { title, content, category } = req.body;
-//   const image = req.file; // This will be the uploaded image file
-  
-//   // Extract the user ID from the session
-//   const userId = req.session.currentUser._id;
-
-//   // Validation
-//   if (!title || !content || !category) {
-//     return res.render('error', { error: 'Por favor, completa todos los campos.' });
-//   }
-// console.log(image)
-//   try {
-//     const result = await cloudinary.uploader.upload(image.path); // Upload the image to Cloudinary
-// console.log(result)
-//     // Create the post with the image URL
-//     await post.create({
-//       title,
-//       content,
-//       category,
-//       user: userId,
-//       imageUrl: result.secure_url
-//     });
-
-//     res.redirect('/posts');
-//   } catch (error) {
-//     console.error(error);
-//     res.render('error', { error: 'Hubo un error al mostrar los posts.' });
-//   }
-// });
+    .catch((error) => {
+      res.render('error', { error: 'Hubo un error al mostrar los posts.' });
+    });
+});
 
 
 // Ruta GET para mostrar un post específico por su ID
@@ -168,6 +172,7 @@ router.post('/:id/edit', (req, res, next) => {
       });
 });
 
+
 // Ruta POST para agregar un comentario a un post específico
 router.post('/:id/comments', (req, res, next) => {
   const postId = req.params.id;
@@ -181,7 +186,7 @@ router.post('/:id/comments', (req, res, next) => {
   Comment.create({ content, user: owner, post: postId })
     .then((comment) => {
       // Agrega el ID del nuevo comentario al array de comentarios del post
-      return Post.findByIdAndUpdate(postId, { $push: { comments: comment._id } }, { new: true });
+      return post.findByIdAndUpdate(postId, { $push: { comments: comment._id } }, { new: true });
     })
     .then(() => {
       res.redirect(`/posts/${postId}`);
