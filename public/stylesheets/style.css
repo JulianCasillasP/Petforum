@@ -71,3 +71,30 @@ footer {
   display: flex;
   flex-direction: column;
 }
+
+.custom-small-image {
+  max-width: 40%; /* Ajusta el porcentaje según tu preferencia */
+  height: auto; /* Mantén la proporción de aspecto */
+}
+
+
+.custom-small-image2 {
+  max-width: 30%; /* Ajusta el porcentaje según tu preferencia */
+  height: auto; /* Mantén la proporción de aspecto */
+}
+
+/* Estilos para cada tarjeta de post */
+.card {
+  margin-bottom: 20px; /* Agrega un margen inferior entre las tarjetas */
+}
+
+.row.g-0 {
+  align-items: center; /* Centra verticalmente los elementos en la fila */
+}
+
+.col-md-8 {
+  padding: 20px; /* Agrega un espaciado interno a la sección de contenido */
+}
+
+
+

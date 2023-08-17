@@ -8,11 +8,11 @@
       <p>{{post.content}}</p>
       <p>Categoría: {{post.category}}</p>
       <p>Escrito por: {{post.user.username}}</p>
-      {{#if post.image}}
+      {{#if post.postImage}}
         <img
-          src="../public/uploads/{{post.image}}"
+          src="/uploads/{{post.postImage}}"
           alt="{{post.title}}"
-          class="img-fluid"
+          class="custom-small-image"
         />
       {{/if}}
       {{#if currentUser.isAdmin}}

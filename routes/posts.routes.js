@@ -83,10 +83,13 @@ router.post('/create', upload.single('image'), (req, res, next) => {
 
   const userId = req.session.currentUser._id;
 
-  // Aquí puedes obtener el nombre del archivo de imagen
-  const imageName = req.file.filename;
+  // Verificamos si se proporcionó una imagen en la solicitud
+  let imageName = null;
+  if (req.file) {
+    imageName = req.file.filename;
+  }
 
-  post.create({ title, content, category, user: userId, image: imageName })
+  post.create({ title, content, category, user: userId, postImage: imageName })
     .then(() => {
       res.redirect('/posts');
     })
@@ -94,7 +97,6 @@ router.post('/create', upload.single('image'), (req, res, next) => {
       res.render('error', { error: 'Hubo un error al mostrar los posts.' });
     });
 });
-
 
 // Ruta GET para mostrar un post específico por su ID
 router.get('/:id', (req, res, next) => {
