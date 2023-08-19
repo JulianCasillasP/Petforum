@@ -50,7 +50,14 @@ router.get('/category/:category', (req, res, next) => {
   console.log("Category Filter:", category);
 
   post.find({ category })
-  .populate("user")
+  .populate("user comment")
+  .populate({
+    path: "comment",
+    populate: {
+      path: "user",
+      model: "User",
+    },
+  })
     .then((posts) => {
       res.render('posts/posts', { posts });
     })
@@ -58,26 +65,6 @@ router.get('/category/:category', (req, res, next) => {
       res.render('error', { error });
     });
 });
-
-
-// // Ruta POST para recibir los datos del formulario y crear un nuevo post
-// router.post('/create', (req, res, next) => {
-//   const { title, content, category } = req.body;
-
-//   if (!title || !content || !category) {
-//     return res.render('error', { error: 'Por favor, completa todos los campos.' });
-//   }
-  
-//   const userId = req.session.currentUser._id;
-
-//   post.create({ title, content, category, user: userId})
-//     .then(() => {
-//           res.redirect('/posts');
-//         })
-//         .catch((error) => {
-//           res.render('error', { error: 'Hubo un error al mostrar los posts.' });
-//         });
-//     });
 
 
 // Ruta POST para recibir los datos del formulario y crear un nuevo post

@@ -27,10 +27,7 @@ router.post("/signup", isLoggedOut, (req, res) => {
   let isAdmin = false;
   // Check that username, email, and password are provided
   if (
-    username === "" ||
-    email === "" ||
-    password === "" ||
-    confirmPassword === ""
+    username === "" || email === "" || password === "" || confirmPassword === ""
   ) {
     res.status(400).render("auth/signup", {
       errorMessage:

@@ -45,14 +45,7 @@
           ></textarea>
           <button type="submit" class="btn btn-primary mt-2">Enviar</button>
         </form>
-        {{#if post.comment.length}}
-          <h3 class="mt-4">Comentarios:</h3>
-          <ul class="list-group">
-            {{#each post.comment}}
-              <li class="list-group-item">{{this.content}}</li>
-            {{/each}}
-          </ul>
-        {{/if}}
+       
       </div>
       {{#if post.postImage}}
         <div class="custom-image-container">
