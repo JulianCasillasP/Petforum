@@ -26,9 +26,16 @@ router.get('/new-post', (req, res, next) => {
   // Ruta GET para mostrar todos los posts
 router.get('/', (req, res, next) => {
   post.find()
-  .populate("user")
+  .populate("user comment")
+  .populate({
+    path: "comment",
+    populate: {
+      path: "user",
+      model: "User",
+    },
+  })
     .then((posts) => {
-      console.log(posts)
+      console.log(posts[0].comment)
       res.render('posts/posts', { posts });
     })
     .catch((error) => {
