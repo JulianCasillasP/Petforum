@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge" />
   <title>{{appTitle}}</title>
-   <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="/stylesheets/style.css" />
   <link
     href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
@@ -19,10 +19,10 @@
   <header>
     <div class="container-fluid bg-light">
       <div class="row">
-        <div class="col-12">
+        <div class="col-12 d-flex align-items-center justify-content-between">
           <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="/posts">Posts.</a>
+              <a class="nav-link" href="/posts">Posts.</a>
             </li>
             {{#if currentUser}}
             <li class="nav-item">
@@ -35,26 +35,20 @@
             </li>
 
             <li class="nav-item">
-              <a class="nav-link" href="/auth/login">Inicia sesion.</a>
+              <a class="nav-link" href="/auth/login">Inicia sesión.</a>
             </li>
             {{/if}}
             {{#if currentUser}}
             <li class="nav-item">
-              <a class="nav-link" href="/auth/logout">Cerrar sesion.</a>
+              <a class="nav-link" href="/auth/logout">Cerrar sesión.</a>
             </li>
             {{/if}}
           </ul>
-        </div>
-      </div>
-    </div>
-    <div class="container-fluid bg-light">
-      <div class="row">
-        <div class="col-12 text-end">
-          <div class="welcome-message">
+          <div class="text-end">
             {{#if currentUser}}
-            <p>Bienvenido, {{currentUser.username}}!</p>
+            <p class="text-dark">Bienvenido, {{currentUser.username}}!</p>
             {{else}}
-            <p>Bienvenido, invitado!</p>
+            <p class="text-dark">Bienvenido, invitado!</p>
             {{/if}}
           </div>
         </div>
@@ -62,8 +56,6 @@
     </div>
   </header>
   {{{body}}}
-
   <script src="/js/script.js"></script>
 </body>
-
 </html>

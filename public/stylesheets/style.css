@@ -2,6 +2,8 @@ body {
   padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
   background-color: #f8f9fa;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -15,11 +17,6 @@ html, body {
   padding: 0;
 }
 
-body {
-  background-color: #f8f9fa;
-  display: flex;
-  flex-direction: column;
-}
 
 /* Ajustar el contenido principal para ocupar todo el espacio restante */
 main {
@@ -85,16 +82,25 @@ footer {
 
 /* Estilos para cada tarjeta de post */
 .card {
-  margin-bottom: 20px; /* Agrega un margen inferior entre las tarjetas */
-}
-
-.row.g-0 {
-  align-items: center; /* Centra verticalmente los elementos en la fila */
+  margin-bottom: 20px;
 }
 
 .col-md-8 {
-  padding: 20px; /* Agrega un espaciado interno a la sección de contenido */
+  padding: 20px;
 }
 
+.col-md-4 {
+  padding: 20px; 
+}
 
+/* Estilos personalizados */
+.nav-tabs .nav-link.active {
+  background-color: rgba(0, 0, 300, 0.4);
+  border-radius: 10px;
+  transition: background-color 0.8s, transform 0.8s;
+}
 
+.nav-tabs .nav-link {
+  transition: transform 0.3s, color 0.3s;
+  color: #00b7ff;
+}

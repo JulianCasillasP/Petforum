@@ -1,57 +1,69 @@
 <html>
-  <head>
-    <title>Detalles del Post</title>
-  </head>
-  <body>
-    <div class="container mt-5">
-      <h1>{{post.title}}</h1>
-      <p>{{post.content}}</p>
-      <p>Categoría: {{post.category}}</p>
-      <p>Escrito por: {{post.user.username}}</p>
-      {{#if post.postImage}}
-        <img
-          src="/uploads/{{post.postImage}}"
-          alt="{{post.title}}"
-          class="custom-small-image"
-        />
-      {{/if}}
-      {{#if currentUser.isAdmin}}
-        <form action="/posts/{{post._id}}/edit" method="GET">
-          <button type="submit" class="btn btn-primary btn-sm">Editar</button>
-        </form>
-        <form action="/posts/{{post._id}}/delete" method="post">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
-      {{else if owner}}
-        <form action="/posts/{{post._id}}/edit" method="GET">
-          <button type="submit" class="btn btn-primary btn-sm">Editar</button>
-        </form>
-        <form action="/posts/{{post._id}}/delete" method="post">
-          <button type="submit" class="btn btn-danger">Eliminar</button>
-        </form>
-      {{/if}}
-      <a href="/posts" class="btn btn-secondary mt-2">Volver a la lista de posts</a>
+<head>
+  <title>Detalles del Post</title>
+  <style>
+    .custom-image-container {
+      flex-basis: 200%;
+      margin-left: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <h1>{{post.title}}</h1>
+    <div class="d-flex">
+      <div>
+        <p>{{post.content}}</p>
+        <p>Categoría: {{post.category}}</p>
+        <p>Escrito por: {{post.user.username}}</p>
+        {{#if currentUser.isAdmin}}
+          <form action="/posts/{{post._id}}/edit" method="GET">
+            <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+          </form>
+          <form action="/posts/{{post._id}}/delete" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        {{else if owner}}
+          <form action="/posts/{{post._id}}/edit" method="GET">
+            <button type="submit" class="btn btn-primary btn-sm">Editar</button>
+          </form>
+          <form action="/posts/{{post._id}}/delete" method="post">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+          </form>
+        {{/if}}
+        <a href="/posts" class="btn btn-secondary mt-2">Volver a la lista de posts</a>
 
-      <form action="/posts/{{post._id}}/comments" method="post" class="mt-4">
-        <label for="content">Agregar comentario:</label>
-        <textarea
-          name="content"
-          id="content"
-          rows="4"
-          cols="50"
-          required
-          class="form-control"
-        ></textarea>
-        <button type="submit" class="btn btn-primary mt-2">Enviar</button>
-      </form>
-      {{#if post.comments.length}}
-        <h3 class="mt-4">Comentarios:</h3>
-        <ul class="list-group">
-          {{#each post.comments}}
-            <li class="list-group-item">{{this.content}}</li>
-          {{/each}}
-        </ul>
+        <form action="/posts/{{post._id}}/comment" method="post" class="mt-4">
+          <label for="content">Agregar comentario:</label>
+          <textarea
+            name="content"
+            id="content"
+            rows="4"
+            cols="50"
+            required
+            class="form-control"
+          ></textarea>
+          <button type="submit" class="btn btn-primary mt-2">Enviar</button>
+        </form>
+        {{#if post.comment.length}}
+          <h3 class="mt-4">Comentarios:</h3>
+          <ul class="list-group">
+            {{#each post.comment}}
+              <li class="list-group-item">{{this.content}}</li>
+            {{/each}}
+          </ul>
+        {{/if}}
+      </div>
+      {{#if post.postImage}}
+        <div class="custom-image-container">
+          <img
+            src="/uploads/{{post.postImage}}"
+            alt="{{post.title}}"
+            class="custom-small-image w-100"
+          />
+        </div>
       {{/if}}
     </div>
-  </body>
+  </div>
+</body>
 </html>

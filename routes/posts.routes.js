@@ -176,19 +176,15 @@ router.post('/:id/edit', (req, res, next) => {
 
 
 // Ruta POST para agregar un comentario a un post específico
-router.post('/:id/comments', (req, res, next) => {
+router.post('/:id/comment',  (req, res, next) => {
   const postId = req.params.id;
   const { content } = req.body;
-  const owner = req.session.currentUser._id;
+  const currentUser = req.session.currentUser;
 
-  if (!content) {
-    return res.render('error', { error: 'Por favor, completa el contenido del comentario.' });
-  }
-
-  Comment.create({ content, user: owner, post: postId })
+  Comment.create({ content, user: currentUser._id, post: postId })
     .then((comment) => {
       // Agrega el ID del nuevo comentario al array de comentarios del post
-      return post.findByIdAndUpdate(postId, { $push: { comments: comment._id } }, { new: true });
+      return post.findByIdAndUpdate(postId, { $push: { comment: comment._id } });
     })
     .then(() => {
       res.redirect(`/posts/${postId}`);

@@ -23,10 +23,10 @@
               <p class="card-text">Posted by: {{user.username}}</p>
               <a href="/posts/{{_id}}" class="btn btn-primary btn-sm btn-blue">Ver Detalles</a>
               <h3 class="card-title">Comments</h3>
-              {{#if comments.length}}
+              {{#if comment.length}}
                 <div class="card">
                   <div class="card-body">
-                    {{#each comments}}
+                    {{#each comment}}
                       <p class="card-text">{{content}}</p>
                       <p class="card-text">Commented by: {{user.username}}</p>
                     {{/each}}
