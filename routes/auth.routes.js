@@ -116,7 +116,7 @@ router.post("/login", isLoggedOut, (req, res, next) => {
     // Remove the sensitive password field from the session
     delete req.session.currentUser.password;
 
-    res.redirect("/");
+    res.redirect("posts/posts");
     return;
   }
 
